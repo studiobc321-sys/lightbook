@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="오래된 사진을 복원하고 삶을 인터뷰해 한 권의 자전적 포토에세이로 제작합니다."
+    />
+    <title>빛책사 | 삶의 이야기를 한 권의 포토에세이로</title>
+    <script>
+      try {
+        if (!sessionStorage.getItem('lightbook-intro-seen')) {
+          document.documentElement.classList.add('has-intro');
+        }
+      } catch {
+        document.documentElement.classList.add('has-intro');
+      }
+    </script>
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body>
+    <div class="site-intro" data-site-intro aria-hidden="true">
+      <p class="site-intro__message" data-intro-message>흩어진 기억을 모아드립니다</p>
+      <canvas class="site-intro__particles" data-intro-canvas aria-hidden="true"></canvas>
+      <img class="site-intro__logo" data-intro-logo src="/images/lightbook-logo.png" alt="" width="1365" height="401" />
+    </div>
+    <a class="skip-link" href="#main">본문으로 바로가기</a>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="#top" aria-label="빛책사 홈">
+          <img
+            class="brand__logo"
+            src="/images/lightbook-logo.png"
+            alt=""
+            width="1365"
+            height="401"
+          />
+        </a>
+        <nav class="site-nav" aria-label="주요 메뉴">
+          <a class="site-nav__link" href="#story">소개</a>
+          <a class="site-nav__link" href="#process">과정</a>
+          <a class="site-nav__link" href="#products">상품</a>
+          <a
+            class="button button--header"
+            href="https://smartstore.naver.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-smartstore
+          >
+            상품 보기
+            <svg aria-hidden="true" viewBox="0 0 20 20">
+              <path d="M5 10h9M10.5 6.5 14 10l-3.5 3.5" />
+            </svg>
+          </a>
+        </nav>
+        <nav class="site-nav site-nav--replacement" aria-label="주요 메뉴">
+          <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" data-nav-toggle>
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M3 6h14M3 10h14M3 14h14" /></svg>
+          </button>
+          <div class="site-nav__links" id="site-nav-links">
+            <a class="site-nav__link" href="#story">소개</a>
+            <a class="site-nav__link" href="#restoration">복원</a>
+            <a class="site-nav__link" href="#process">제작과정</a>
+            <a class="site-nav__link" href="#services">서비스</a>
+            <a class="site-nav__link" href="#products">상품</a>
+          </div>
+          <a class="button button--header" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer" data-smartstore>
+            상품 보기
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M5 10h9M10.5 6.5 14 10l-3.5 3.5" /></svg>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title-simple">
+        <div class="hero__inner">
+          <div class="hero__intro hero__intro-simple">
+            <div class="hero__copy">
+              <h1 id="hero-title-simple">
+                <span class="title-desktop">당신의 기억을 한 권의 책으로 남깁니다.</span>
+                <span class="title-mobile">당신의 기억을<br />한 권의 책으로 남깁니다.</span>
+              </h1>
+              <p class="hero__description">오래된 사진과 삶의 이야기를 한 권의 포토에세이로 완성합니다.</p>
+              <div class="hero__actions">
+                <a class="button button--primary" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer" data-smartstore>
+                  상품 보기
+                  <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M5 10h9M10.5 6.5 14 10l-3.5 3.5" /></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="hero__intro hero__intro--legacy">
+            <div class="hero__copy">
+              <p class="eyebrow">PHOTO ESSAY STUDIO</p>
+            <h1 id="hero-title">
+              <span class="title-desktop">당신의 기억을, 한 권의 책으로.</span>
+              <span class="title-mobile">당신의 기억을,<br />한 권의 책으로.</span>
+            </h1>
+              <p class="hero__description">
+                오래된 사진을 복원하고 삶의 이야기를 인터뷰해<br class="desktop-only" />
+                한 권의 자전적 포토에세이로 완성합니다.
+              </p>
+              <div class="hero__actions">
+                <a
+                  class="button button--primary"
+                  href="https://smartstore.naver.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-smartstore
+                >
+                  포토에세이 상품 보기
+                  <svg aria-hidden="true" viewBox="0 0 20 20">
+                    <path d="M5 10h9M10.5 6.5 14 10l-3.5 3.5" />
+                  </svg>
+                </a>
+                <a class="text-link" href="#story">
+                  빛책사 소개
+                  <svg aria-hidden="true" viewBox="0 0 20 20">
+                    <path d="M10 4v11M6.5 11.5 10 15l3.5-3.5" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <p class="hero__edition">A BOOK OF MEMORY<br />LIGHTBOOK / 01</p>
+          </div>
+          <figure class="hero__media" style="--hero-bg: url('/images/family-photobook-about-easter-easter-card-with-love.jpg')">
+            <div class="hero__carousel" data-hero-carousel aria-live="polite">
+              <img class="hero__carousel-slide is-active" data-hero-slide data-desktop-src="/images/family-photobook-about-easter-easter-card-with-love.jpg" data-mobile-src="/images/hero-family-photobook-portrait.jpg" src="/images/family-photobook-about-easter-easter-card-with-love.jpg" alt="가족의 사진이 담긴 포토북" width="1920" height="1080" fetchpriority="high" />
+              <img class="hero__carousel-slide" data-hero-slide data-desktop-src="/images/high-angle-man-looking-picture-album.jpg" data-mobile-src="/images/hero-album-portrait.jpg" src="/images/high-angle-man-looking-picture-album.jpg" alt="앨범을 펼쳐 사진을 바라보는 모습" width="1920" height="1080" />
+              <img class="hero__carousel-slide" data-hero-slide data-desktop-src="/images/happy-family-looking-picture-album-medium-shot.jpg" data-mobile-src="/images/hero-happy-family-portrait.jpg" src="/images/happy-family-looking-picture-album-medium-shot.jpg" alt="가족이 함께 사진 앨범을 보는 순간" width="1920" height="1080" />
+            </div>
+            <div class="hero__carousel-controls" aria-label="히어로 사진 넘기기">
+              <button type="button" data-hero-prev aria-label="이전 사진"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="m12.5 4.5-5.5 5.5 5.5 5.5" /></svg></button>
+              <button type="button" data-hero-next aria-label="다음 사진"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="m7.5 4.5 5.5 5.5-5.5 5.5" /></svg></button>
+            </div>
+            <img
+              class="hero__full-image"
+              src="/images/hero-before.png"
+              alt="Restoration before photo"
+              width="1024"
+              height="1536"
+              fetchpriority="high"
+            />
+            <div class="hero__comparison" data-comparison style="--split: 50%">
+              <img
+                class="hero__comparison-image"
+                src="/images/hero-before.png"
+                alt="복원 전의 손상된 오래된 가족사진"
+                width="1024"
+                height="1536"
+                fetchpriority="high"
+              />
+              <div class="hero__comparison-after" aria-hidden="true">
+                <img
+                  class="hero__comparison-image"
+                  src="/images/hero-after.png"
+                  alt=""
+                  width="1024"
+                  height="1536"
+                />
+              </div>
+              <div class="hero__comparison-divider" aria-hidden="true"><span></span></div>
+              <label class="hero__comparison-control">
+                <span class="sr-only">복원 후 사진 영역 조절</span>
+                <input type="range" min="0" max="100" value="50" aria-label="복원 전과 복원 후 비교 위치" />
+              </label>
+              <div class="hero__comparison-labels" aria-hidden="true">
+                <span>BEFORE / 복원 전</span>
+                <span>AFTER / 복원 후</span>
+              </div>
+            </div>
+            <figcaption>
+              <span>01 / 복원 전과 복원 후</span>
+              <span>RESTORATION</span>
+            </figcaption>
+          </figure>
+          <a class="hero__scroll-cue" href="#story" aria-label="소개 섹션으로 이동">
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M10 3v12M6.5 11.5 10 15l3.5-3.5" /></svg>
+          </a>
+        </div>
+      </section>
+
+      <section class="memory-quote" aria-labelledby="memory-quote-text">
+        <div class="memory-quote__inner">
+          <p id="memory-quote-text" class="memory-quote__text">
+            <span class="memory-quote__line">“모든 사람의 삶은 결국 같은 방식으로 끝난다. 다만,</span>
+            <span class="memory-quote__line"><strong>어떻게 살았는가의 기록</strong>이 한 사람을 다른 사람과 구별한다.”</span>
+          </p>
+          <p class="memory-quote__source">— 어니스트 헤밍웨이</p>
+        </div>
+      </section>
+
+      <section class="story" id="story" aria-labelledby="story-title">
+        <div class="story__mouse-follow" data-story-mouse-follow aria-hidden="true"></div>
+        <div class="story__inner">
+          <div class="story__intro-row">
+            <p class="eyebrow">빛책사 소개<br /><span>LIGHTBOOK / 02</span></p>
+            <div class="story__copy">
+              <h2 id="story-title" data-text-reveal>
+                <span class="title-desktop">사진 속 삶의 이야기까지 책으로 남깁니다.</span>
+                <span class="title-mobile">사진 속 삶의 이야기까지<br />책으로 남깁니다.</span>
+              </h2>
+              <p class="story__description">
+                빛책사는 오래된 사진을 복원하고, 한 사람의 삶을 인터뷰해 글과 사진으로
+                엮는 자전적 포토에세이 제작소입니다.
+              </p>
+              <p class="story__statement">
+                한 사람의 인생, 한 가족의 역사.<br />
+                그 시간과 공간을 다음 세대에게 전합니다.
+              </p>
+            </div>
+            <a
+              class="story__link"
+              href="https://smartstore.naver.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-smartstore
+            >
+              스마트스토어에서 상품 보기
+              <svg aria-hidden="true" viewBox="0 0 20 20">
+                <path d="M5 10h9M10.5 6.5 14 10l-3.5 3.5" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="story-gallery" data-story-gallery aria-label="빛책사가 만드는 포토에세이">
+            <div class="story-gallery__choices" role="listbox" aria-label="포토에세이 장면 선택">
+              <button
+                class="story-gallery__item is-active"
+                type="button"
+                role="option"
+                aria-selected="true"
+                data-gallery-item
+                data-gallery-image="/images/KakaoTalk_20260805_165438179.png"
+                data-gallery-alt="오래된 가족사진을 손에 든 모습"
+                data-gallery-title="흩어진 사진을 다시 만나는 순간"
+                data-gallery-meta="MEMORY / 01"
+              >
+                <img src="/images/KakaoTalk_20260805_165438179.png" alt="" width="1920" height="1280" loading="lazy" />
+                <span class="story-gallery__item-overlay"><strong>가족의 사진</strong><small>MEMORY</small></span>
+              </button>
+              <button
+                class="story-gallery__item"
+                type="button"
+                role="option"
+                aria-selected="false"
+                data-gallery-item
+                data-gallery-image="/images/KakaoTalk_20260805_165438179_04.png"
+                data-gallery-alt="포토에세이의 실제 펼친 지면"
+                data-gallery-title="사진과 목소리가 한 권이 되는 과정"
+                data-gallery-meta="PHOTO ESSAY / 02"
+              >
+                <img src="/images/KakaoTalk_20260805_165438179_04.png" alt="" width="1920" height="1280" loading="lazy" />
+                <span class="story-gallery__item-overlay"><strong>한 권의 이야기</strong><small>PHOTO ESSAY</small></span>
+              </button>
+              <button
+                class="story-gallery__item"
+                type="button"
+                role="option"
+                aria-selected="false"
+                data-gallery-item
+                data-gallery-image="/images/KakaoTalk_20260805_165438179_01.png"
+                data-gallery-alt="완성된 포토에세이 책이 쌓인 모습"
+                data-gallery-title="다음 세대에 전하는 우리 가족의 기록"
+                data-gallery-meta="ARCHIVE / 03"
+              >
+                <img src="/images/KakaoTalk_20260805_165438179_01.png" alt="" width="1152" height="1920" loading="lazy" />
+                <span class="story-gallery__item-overlay"><strong>이어지는 기억</strong><small>ARCHIVE</small></span>
+              </button>
+            </div>
+
+            <figure class="story-gallery__display" data-gallery-display>
+              <img
+                src="/images/KakaoTalk_20260805_165438179.png"
+                alt="오래된 가족사진을 손에 든 모습"
+                width="1920"
+                height="1280"
+                loading="lazy"
+              />
+              <figcaption>
+                <strong data-gallery-display-title>흩어진 사진을 다시 만나는 순간</strong>
+                <span data-gallery-display-meta>MEMORY / 01</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="restoration" id="restoration" aria-labelledby="restoration-title">
+        <div class="restoration__inner">
+          <div class="restoration__copy">
+            <p class="eyebrow">빛책사 / 03</p>
+            <h2 id="restoration-title" data-text-reveal><span>한 장의 사진이</span><span>다시 선명해지는 시간</span></h2>
+            <p>빛바랜 사진을 천천히 살피고, 그 안에 남은 표정과 시간을 오늘의 이야기로 되돌립니다.</p>
+            <ol class="restoration__steps">
+              <li><span>01</span><strong>흐릿한 사진을 확인합니다</strong><small>색과 표정을 해치지 않도록 원본을 살핍니다.</small></li>
+              <li><span>02</span><strong>사진을 복원합니다</strong><small>먼지와 손상을 정리하고 자연스러운 색을 되찾습니다.</small></li>
+              <li><span>03</span><strong>한 권의 장면으로 남깁니다</strong><small>복원 전과 후의 시간을 함께 기록합니다.</small></li>
+            </ol>
+          </div>
+          <figure class="restoration__media">
+            <div class="hero__comparison" data-comparison style="--split: 50%">
+              <img class="hero__comparison-image" src="/images/hero-before.png" alt="복원 전 오래된 가족사진" width="1024" height="1536" />
+              <div class="hero__comparison-after" aria-hidden="true">
+                <img class="hero__comparison-image" src="/images/hero-after.png" alt="" width="1024" height="1536" />
+              </div>
+              <div class="hero__comparison-divider" aria-hidden="true"><span></span></div>
+              <label class="hero__comparison-control">
+                <span class="sr-only">복원 전과 후 비교 위치 조절</span>
+                <input type="range" min="0" max="100" value="50" aria-label="복원 전과 후 비교 위치" />
+              </label>
+              <div class="hero__comparison-labels" aria-hidden="true"><span>BEFORE</span><span>AFTER</span></div>
+            </div>
+            <figcaption><span>드래그해서 복원 전·후를 비교해보세요</span><span>RESTORATION</span></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="process" id="process" aria-labelledby="process-title">
+        <div class="process__track">
+          <div class="process__stage">
+            <div class="process__intro">
+              <p class="eyebrow">LIGHTBOOK / 04</p>
+              <h2 id="process-title" data-text-reveal>기억이 책이 되는 과정</h2>
+              <p>한 장의 사진에서 시작해, 오래 남을 한 권으로 완성합니다.</p>
+            </div>
+
+            <div class="process__steps" aria-label="포토에세이 제작 과정">
+              <div class="process__rail" aria-hidden="true"><span></span></div>
+              <ol>
+                <li class="process-step is-active" data-step="0">
+                  <button class="process-step__label" type="button" aria-current="step">
+                    <span class="process-step__number">01</span>
+                    <span class="process-step__title">사진을 모읍니다</span>
+                  </button>
+                </li>
+                <li class="process-step" data-step="1">
+                  <button class="process-step__label" type="button">
+                    <span class="process-step__number">02</span>
+                    <span class="process-step__title">사진을 복원합니다</span>
+                  </button>
+                </li>
+                <li class="process-step" data-step="2">
+                  <button class="process-step__label" type="button">
+                    <span class="process-step__number">03</span>
+                    <span class="process-step__title">이야기를 듣습니다</span>
+                  </button>
+                </li>
+                <li class="process-step" data-step="3">
+                  <button class="process-step__label" type="button">
+                    <span class="process-step__number">04</span>
+                    <span class="process-step__title">한 권으로 완성합니다</span>
+                  </button>
+                </li>
+                <li class="process-step" data-step="4">
+                  <button class="process-step__label" type="button">
+                    <span class="process-step__number">05</span>
+                    <span class="process-step__title">고객(저자) 컨펌</span>
+                  </button>
+                </li>
+                <li class="process-step" data-step="5">
+                  <button class="process-step__label" type="button">
+                    <span class="process-step__number">06</span>
+                    <span class="process-step__title">수정 작업</span>
+                  </button>
+                </li>
+              </ol>
+            </div>
+
+            <div class="process__visual">
+              <div class="process__visual-head">
+                <span>THE MAKING OF A PHOTO ESSAY</span>
+                <span class="process__counter">01 / 06</span>
+              </div>
+              <div class="process__media" aria-live="polite">
+                <figure class="process-panel is-active" data-panel="0">
+                  <img src="/images/story-memory.jpg" alt="가족사진을 모아 살펴보는 손" width="1920" height="1280" loading="lazy" />
+                  <figcaption>흩어져 있던 사진과 기억의 단서를 한곳에 모읍니다.</figcaption>
+                </figure>
+                <figure class="process-panel" data-panel="1">
+                  <img src="/images/hero-family-memory.jpg" alt="오래된 흑백 가족사진을 손에 든 모습" width="1600" height="2400" loading="lazy" />
+                  <figcaption>오래된 사진을 깨끗하게 복원하고 필요한 부분을 다듬습니다.</figcaption>
+                </figure>
+                <figure class="process-panel" data-panel="2">
+                  <img src="/images/story-book.jpg" alt="펼쳐진 책의 지면을 살펴보는 손" width="1920" height="1280" loading="lazy" />
+                  <figcaption>한 사람의 삶을 천천히 듣고 책에 담을 글로 정리합니다.</figcaption>
+                </figure>
+                <figure class="process-panel" data-panel="3">
+                  <img src="/images/story-reading.jpg" alt="오래된 책을 펼쳐 읽는 손과 기록물" width="1152" height="1920" loading="lazy" />
+                  <figcaption>사진과 글을 정성껏 디자인해 오래 남을 책으로 제작합니다.</figcaption>
+                </figure>
+                <figure class="process-panel" data-panel="4">
+                  <img src="/images/story-reading.jpg" alt="완성된 책을 함께 확인하는 모습" width="1152" height="1920" loading="lazy" />
+                  <figcaption>완성된 원고와 디자인을 고객(저자)님과 함께 확인합니다.</figcaption>
+                </figure>
+                <figure class="process-panel" data-panel="5">
+                  <img src="/images/story-book.jpg" alt="책의 지면을 다시 살피는 모습" width="1920" height="1280" loading="lazy" />
+                  <figcaption>확인해 주신 내용을 반영해 마지막 수정 작업을 진행합니다.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="services" id="services" aria-labelledby="story-services-title">
+        <div class="services__inner">
+          <div class="story__services-heading" data-services-reveal>
+            <p class="eyebrow">OUR SERVICES</p>
+            <h2 id="story-services-title"><span>사진과 삶의 이야기를</span><span>책으로 엮습니다</span></h2>
+            <p>오래된 사진을 복원하고, 한 사람의 삶을 인터뷰해 글과 사진으로 엮습니다.</p>
+          </div>
+          <ol class="story__service-grid" data-services-reveal>
+            <li>
+              <span>Ⅰ</span>
+              <strong>사진과 기록을 모읍니다</strong>
+              <p>오래된 앨범과 기록 속 사진을 모아, 삶의 흐름을 함께 살핍니다.</p>
+            </li>
+            <li>
+              <span>Ⅱ</span>
+              <strong>사진을 복원하고 정리합니다</strong>
+              <p>시간에 바랜 사진을 복원하고, 책에 담을 사진을 정리합니다.</p>
+            </li>
+            <li>
+              <span>Ⅲ</span>
+              <strong>삶을 인터뷰합니다</strong>
+              <p>한 사람의 삶을 천천히 인터뷰하며 사진 속 기억을 듣습니다.</p>
+            </li>
+            <li>
+              <span>Ⅳ</span>
+              <strong>인터뷰를 바탕으로 글을 구성합니다</strong>
+              <p>인터뷰의 목소리를 바탕으로, 책에 담을 글을 구성합니다.</p>
+            </li>
+            <li>
+              <span>Ⅴ</span>
+              <strong>사진과 이야기를 편집·디자인합니다</strong>
+              <p>사진과 이야기가 자연스럽게 이어지도록 한 장면씩 편집·디자인합니다.</p>
+            </li>
+            <li>
+              <span>Ⅵ</span>
+              <strong>자전적 포토에세이로 제작합니다</strong>
+              <p>한 권의 자전적 포토에세이로 제작해 다음 세대에 전합니다.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="products products--stage" id="products" aria-labelledby="products-title">
+        <div class="products__inner">
+          <header class="products__header">
+            <div>
+              <p class="eyebrow">LIGHTBOOK / 05</p>
+              <h2 id="products-title" data-text-reveal>PHOTO ESSAY</h2>
+              <p class="products__subtitle">빛책사의 포토에세이 상품</p>
+            </div>
+            <p class="products__period">PHOTO ESSAY<br />2026 —</p>
+          </header>
+
+          <nav class="product-stage-menu" aria-label="포토에세이 상품 선택">
+            <button class="is-active" type="button" data-product-menu data-product-index="0" aria-current="page"><span>1.</span> 부모님의 시간</button>
+            <button type="button" data-product-menu data-product-index="1"><span>2.</span> 가족 이야기</button>
+            <button type="button" data-product-menu data-product-index="2"><span>3.</span> 우리의 이야기</button>
+          </nav>
+
+          <div class="product-list">
+            <article
+              class="product-row"
+              data-product-sample
+              data-product-name="부모님의 시간"
+              data-product-category="SILVER BOOK · FOR PARENTS"
+              data-product-image="/images/KakaoTalk_20260805_165438179_06.png"
+              data-product-alt="완성된 부모님 포토에세이 책"
+              data-product-description="부모님의 오래된 사진과 삶의 이야기를 한 권으로 남깁니다."
+            >
+              <span class="product-row__number">01</span>
+              <div class="product-row__info">
+                <p class="product-row__category">SILVER BOOK · FOR PARENTS</p>
+                <h3><button type="button" data-product-sample-trigger data-text-reveal>부모님의 시간</button></h3>
+                <p class="product-row__description">부모님의 오래된 사진과 삶의 이야기를 한 권으로 남깁니다.</p>
+              </div>
+              <nav class="product-stage-menu product-stage-menu--mobile" aria-label="포토에세이 상품 선택">
+                <button class="is-active" type="button" data-product-menu data-product-index="0" aria-current="page"><span>1.</span> 부모님의 시간</button>
+                <button type="button" data-product-menu data-product-index="1"><span>2.</span> 가족 이야기</button>
+                <button type="button" data-product-menu data-product-index="2"><span>3.</span> 우리의 이야기</button>
+              </nav>
+              <button class="product-row__media" type="button" data-product-sample-trigger aria-label="부모님의 시간 샘플 사진 보기">
+                <img src="/images/KakaoTalk_20260805_165438179_06.png" alt="완성된 부모님 포토에세이 책" width="1920" height="1280" loading="lazy" />
+                <span class="product-row__sample-label">샘플 사진 보기</span>
+              </button>
+              <a class="product-row__cta" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer" data-smartstore>
+                구매하기
+                <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M5 10h9M10.5 6.5 14 10l-3.5 3.5" /></svg>
+              </a>
+            </article>
+
+            <article
+              class="product-row"
+              data-product-sample
+              data-product-name="가족 이야기"
+              data-product-category="FAMILY STORY · FOR FAMILY"
+              data-product-image="/images/KakaoTalk_20260805_165438179_02.png"
+              data-product-alt="가족이 완성된 포토에세이를 함께 읽는 모습"
+              data-product-description="함께 모은 사진과 세대의 기억을 가족의 책으로 엮습니다."
+            >
+              <span class="product-row__number">02</span>
+              <div class="product-row__info">
+                <p class="product-row__category">FAMILY STORY · FOR FAMILY</p>
+                <h3><button type="button" data-product-sample-trigger data-text-reveal>가족 이야기</button></h3>
+                <p class="product-row__description">함께 모은 사진과 세대의 기억을 가족의 책으로 엮습니다.</p>
+              </div>
+              <nav class="product-stage-menu product-stage-menu--mobile" aria-label="포토에세이 상품 선택">
+                <button type="button" data-product-menu data-product-index="0"><span>1.</span> 부모님의 시간</button>
+                <button class="is-active" type="button" data-product-menu data-product-index="1" aria-current="page"><span>2.</span> 가족 이야기</button>
+                <button type="button" data-product-menu data-product-index="2"><span>3.</span> 우리의 이야기</button>
+              </nav>
+              <button class="product-row__media" type="button" data-product-sample-trigger aria-label="가족 이야기 샘플 사진 보기">
+                <img src="/images/KakaoTalk_20260805_165438179_02.png" alt="가족이 완성된 포토에세이를 함께 읽는 모습" width="1920" height="1280" loading="lazy" />
+                <span class="product-row__sample-label">샘플 사진 보기</span>
+              </button>
+              <a class="product-row__cta" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer" data-smartstore>
+                구매하기
+                <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M5 10h9M10.5 6.5 14 10l-3.5 3.5" /></svg>
+              </a>
+            </article>
+
+            <article
+              class="product-row"
+              data-product-sample
+              data-product-name="우리의 이야기"
+              data-product-category="OUR STORY · FOR TWO"
+              data-product-image="/images/KakaoTalk_20260805_165438179_05.png"
+              data-product-alt="두 사람의 이야기가 담긴 포토에세이 책"
+              data-product-description="커플과 친구, 두 사람의 시간을 사진과 글로 기록합니다."
+            >
+              <span class="product-row__number">03</span>
+              <div class="product-row__info">
+                <p class="product-row__category">OUR STORY · FOR TWO</p>
+                <h3><button type="button" data-product-sample-trigger data-text-reveal>우리의 이야기</button></h3>
+                <p class="product-row__description">커플과 친구, 두 사람의 시간을 사진과 글로 기록합니다.</p>
+              </div>
+              <nav class="product-stage-menu product-stage-menu--mobile" aria-label="포토에세이 상품 선택">
+                <button type="button" data-product-menu data-product-index="0"><span>1.</span> 부모님의 시간</button>
+                <button type="button" data-product-menu data-product-index="1"><span>2.</span> 가족 이야기</button>
+                <button class="is-active" type="button" data-product-menu data-product-index="2" aria-current="page"><span>3.</span> 우리의 이야기</button>
+              </nav>
+              <button class="product-row__media" type="button" data-product-sample-trigger aria-label="우리의 이야기 샘플 사진 보기">
+                <img src="/images/KakaoTalk_20260805_165438179_05.png" alt="두 사람의 이야기가 담긴 포토에세이 책" width="1920" height="1280" loading="lazy" />
+                <span class="product-row__sample-label">샘플 사진 보기</span>
+              </button>
+              <a class="product-row__cta" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer" data-smartstore>
+                구매하기
+                <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M5 10h9M10.5 6.5 14 10l-3.5 3.5" /></svg>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="product-sample-modal" data-product-sample-modal aria-hidden="true">
+      <div class="product-sample-modal__backdrop" data-product-sample-close></div>
+      <section class="product-sample-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="product-sample-title">
+        <button class="product-sample-modal__close" type="button" data-product-sample-close aria-label="샘플 사진 닫기">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19" /></svg>
+        </button>
+        <div class="product-sample-modal__image-wrap"><img data-product-sample-image src="" alt="" /></div>
+        <div class="product-sample-modal__content">
+          <p data-product-sample-category></p>
+          <h2 id="product-sample-title" data-product-sample-title></h2>
+          <p data-product-sample-description></p>
+          <dl>
+            <div><dt>구성</dt><dd>사진 복원 · 인터뷰 · 글 · 편집 디자인</dd></div>
+            <div><dt>완성</dt><dd>한 사람의 삶을 담은 포토에세이</dd></div>
+          </dl>
+          <a class="product-sample-modal__cta" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer" data-smartstore>구매하기</a>
+        </div>
+      </section>
+    </div>
+
+    <footer class="site-footer" id="footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__top">
+          <a class="site-footer__brand" href="#top" aria-label="빛책사 처음으로 이동">
+            <img src="/images/lightbook-logo.png" alt="빛책사" width="1365" height="401" />
+          </a>
+          <div class="site-footer__actions">
+            <a class="site-footer__back" href="#top">처음으로 <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M5 10h9M10.5 6.5 14 10l-3.5 3.5" /></svg></a>
+            <a class="site-footer__buy" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer" data-smartstore>구매하기 <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M5 10h9M10.5 6.5 14 10l-3.5 3.5" /></svg></a>
+          </div>
+        </div>
+        <div class="site-footer__bottom">
+          <div class="site-footer__contacts" aria-label="빛책사 연락처">
+            <a href="#" aria-label="인스타그램 링크 준비 중" data-footer-contact>
+              <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" /><circle cx="12" cy="12" r="4.1" /><circle cx="17.45" cy="6.6" r="1.05" /></svg>
+            </a>
+            <a href="#" aria-label="카카오톡 링크 준비 중" data-footer-contact>
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4.15c-4.66 0-8.44 2.82-8.44 6.3 0 2.22 1.7 4.17 4.26 5.3l-.88 3.32c-.1.37.32.67.65.46l3.35-2.14c.35.05.7.07 1.06.07 4.66 0 8.44-2.82 8.44-6.3s-3.78-6.3-8.44-6.3Z" /><path d="m8.1 11.2 1.25 1.28 1.4-1.4 1.4 1.4 1.4-1.4 1.25 1.28" /></svg>
+            </a>
+            <a href="#" aria-label="전화 링크 준비 중" data-footer-contact>
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7.35 3.5-2.15 1.06a2.1 2.1 0 0 0-1.13 2.37c1.37 6.47 6.53 11.63 13 13a2.1 2.1 0 0 0 2.37-1.13l1.06-2.15a1.56 1.56 0 0 0-.5-1.95l-2.48-1.8a1.56 1.56 0 0 0-1.96.13l-1.3 1.3a12.2 12.2 0 0 1-4.68-4.68l1.3-1.3a1.56 1.56 0 0 0 .13-1.96l-1.8-2.48a1.56 1.56 0 0 0-1.95-.5Z" /></svg>
+            </a>
+          </div>
+          <p class="site-footer__copyright">© 2026 Lightbook. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <div class="floating-contact" data-floating-contact>
+      <div class="floating-contact__menu" id="floating-contact-menu" aria-hidden="true">
+        <button class="floating-contact__item" type="button" data-floating-item aria-label="Instagram (링크 준비 중)">
+          <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+            <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" />
+            <circle cx="12" cy="12" r="4.1" />
+            <circle cx="17.45" cy="6.6" r="1.05" class="floating-contact__icon-fill" />
+          </svg>
+          <span class="floating-contact__item-label">Instagram</span>
+        </button>
+        <button class="floating-contact__item" type="button" data-floating-item aria-label="카카오톡 (링크 준비 중)">
+          <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+            <path class="floating-contact__icon-fill" d="M12 4.15c-4.66 0-8.44 2.82-8.44 6.3 0 2.22 1.7 4.17 4.26 5.3l-.88 3.32c-.1.37.32.67.65.46l3.35-2.14c.35.05.7.07 1.06.07 4.66 0 8.44-2.82 8.44-6.3s-3.78-6.3-8.44-6.3Z" />
+            <path d="m8.1 11.2 1.25 1.28 1.4-1.4 1.4 1.4 1.4-1.4 1.25 1.28" />
+          </svg>
+          <span class="floating-contact__item-label">카카오톡 문의</span>
+        </button>
+        <button class="floating-contact__item" type="button" data-floating-item aria-label="전화 (링크 준비 중)">
+          <svg class="floating-contact__phone-icon" aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+            <path class="floating-contact__icon-fill" d="M7.35 3.5 5.2 4.56a2.1 2.1 0 0 0-1.13 2.37c1.37 6.47 6.53 11.63 13 13a2.1 2.1 0 0 0 2.37-1.13l1.06-2.15a1.56 1.56 0 0 0-.5-1.95l-2.48-1.8a1.56 1.56 0 0 0-1.96.13l-1.3 1.3a12.2 12.2 0 0 1-4.68-4.68l1.3-1.3a1.56 1.56 0 0 0 .13-1.96l-1.8-2.48a1.56 1.56 0 0 0-1.95-.5Z" />
+          </svg>
+          <svg class="floating-contact__store-icon" aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+            <path d="M4 9.5h16l-1 10.5H5L4 9.5Z" />
+            <path d="M7.5 9.5V7a4.5 4.5 0 0 1 9 0v2.5" />
+          </svg>
+          <span class="floating-contact__item-label floating-contact__phone-label">전화하기</span>
+          <span class="floating-contact__item-label floating-contact__store-label">공식몰 바로가기</span>
+        </button>
+      </div>
+      <button class="floating-contact__toggle" type="button" aria-expanded="false" aria-controls="floating-contact-menu" data-floating-toggle>
+        <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path d="M5 14 12 7l7 7" /></svg>
+        <span class="floating-contact__toggle-label">문의하기</span>
+        <span class="sr-only">연락처 메뉴 열기</span>
+      </button>
+    </div>
+  </body>
+</html>
