@@ -30,8 +30,9 @@
         overflow: hidden;
         background: #fff;
       }
-      html.has-intro:not(.intro-ready) .site-intro__message,
-      html.has-intro:not(.intro-ready) .site-intro__logo { visibility: hidden; }
+      html.has-intro:not(.intro-ready) .site-intro__message { visibility: hidden; }
+      html.has-intro .site-intro__logo { visibility: hidden; }
+      html.has-intro .site-intro.is-logo-visible .site-intro__logo { visibility: visible; }
     </style>
     <script type="module" src="/src/main.js"></script>
   </head>
