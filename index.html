@@ -17,6 +17,22 @@
         document.documentElement.classList.add('has-intro');
       }
     </script>
+    <style>
+      /* Critical intro shell: prevents the page beneath from flashing before the CSS bundle loads. */
+      html.has-intro body { overflow: hidden; }
+      html.has-intro .site-intro {
+        position: fixed;
+        inset: 0;
+        z-index: 120;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #fff;
+      }
+      html.has-intro:not(.intro-ready) .site-intro__message,
+      html.has-intro:not(.intro-ready) .site-intro__logo { visibility: hidden; }
+    </style>
     <script type="module" src="/src/main.js"></script>
   </head>
   <body>

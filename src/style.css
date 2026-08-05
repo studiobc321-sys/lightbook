@@ -3228,6 +3228,7 @@ html.has-intro .site-intro {
   opacity: 0;
   filter: blur(1px);
   transform: translate3d(0, -8px, 0) rotate(0) scale(0.98);
+  transition-duration: 180ms;
 }
 
 .site-intro__logo {

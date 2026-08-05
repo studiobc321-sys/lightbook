@@ -62,12 +62,13 @@ const runSiteIntro = async () => {
 
   // The copy resolves from scattered fragments, then hands off to a simple logo reveal.
   splitIntroMessage();
-  await wait(420);
+  document.documentElement.classList.add('intro-ready');
+  await wait(280);
   introMessage.classList.add('is-assembled');
-  await wait(1500);
-  await wait(1050);
+  await wait(1200);
+  await wait(420);
   introMessage.classList.add('is-fading');
-  await wait(650);
+  await wait(220);
   await loadIntroLogo();
   siteIntro.classList.add('is-logo-visible');
   await wait(1250);
