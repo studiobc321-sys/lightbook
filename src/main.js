@@ -2,7 +2,6 @@ import './style.css';
 
 const siteIntro = document.querySelector('[data-site-intro]');
 const introMessage = document.querySelector('[data-intro-message]');
-const introCanvas = document.querySelector('[data-intro-canvas]');
 const introLogo = document.querySelector('[data-intro-logo]');
 const INTRO_SESSION_KEY = 'lightbook-intro-seen';
 const hasIntroAtLoad = document.documentElement.classList.contains('has-intro');
@@ -52,98 +51,8 @@ const loadIntroLogo = () => new Promise((resolve) => {
   window.setTimeout(resolve, 900);
 });
 
-const createLogoParticles = () => {
-  if (!introCanvas || !introLogo || !introLogo.naturalWidth) return null;
-
-  const context = introCanvas.getContext('2d');
-  if (!context) return null;
-
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const viewportWidth = window.innerWidth;
-  const viewportHeight = window.innerHeight;
-  const logoBounds = introLogo.getBoundingClientRect();
-  const sampleWidth = Math.max(1, Math.round(logoBounds.width * dpr));
-  const sampleHeight = Math.max(1, Math.round(logoBounds.height * dpr));
-  const sampleCanvas = document.createElement('canvas');
-  const sampleContext = sampleCanvas.getContext('2d', { willReadFrequently: true });
-
-  if (!sampleContext || !logoBounds.width || !logoBounds.height) return null;
-
-  introCanvas.width = Math.round(viewportWidth * dpr);
-  introCanvas.height = Math.round(viewportHeight * dpr);
-  sampleCanvas.width = sampleWidth;
-  sampleCanvas.height = sampleHeight;
-  sampleContext.drawImage(introLogo, 0, 0, sampleWidth, sampleHeight);
-
-  const pixels = sampleContext.getImageData(0, 0, sampleWidth, sampleHeight).data;
-  const step = window.innerWidth <= 680 ? 3 : 4;
-  const particles = [];
-
-  for (let y = 0; y < sampleHeight; y += step) {
-    for (let x = 0; x < sampleWidth; x += step) {
-      const alpha = pixels[(y * sampleWidth + x) * 4 + 3];
-      if (alpha < 45 || (particles.length > 1850 && Math.random() > 0.27)) continue;
-
-      particles.push({
-        startX: viewportWidth * (0.16 + Math.random() * 0.68),
-        startY: viewportHeight * (0.2 + Math.random() * 0.6),
-        targetX: logoBounds.left + x / dpr,
-        targetY: logoBounds.top + y / dpr,
-        driftX: (Math.random() - 0.5) * viewportWidth * 0.7,
-        driftY: -40 - Math.random() * viewportHeight * 0.38,
-        size: Math.random() > 0.86 ? 1.7 : 1,
-        alpha: 0.36 + Math.random() * 0.64,
-      });
-    }
-  }
-
-  const paint = (progress, dissolving = false) => {
-    context.setTransform(dpr, 0, 0, dpr, 0, 0);
-    context.clearRect(0, 0, viewportWidth, viewportHeight);
-    const eased = dissolving
-      ? 1 - Math.pow(1 - progress, 2)
-      : 1 - Math.pow(1 - progress, 3);
-
-    particles.forEach((particle) => {
-      const x = dissolving
-        ? particle.targetX + particle.driftX * eased
-        : particle.startX + (particle.targetX - particle.startX) * eased;
-      const y = dissolving
-        ? particle.targetY + particle.driftY * eased
-        : particle.startY + (particle.targetY - particle.startY) * eased;
-      const opacity = dissolving
-        ? particle.alpha * (1 - eased)
-        : particle.alpha * Math.min(1, progress * 1.7);
-
-      context.fillStyle = `rgba(248, 247, 242, ${opacity})`;
-      context.fillRect(x, y, particle.size, particle.size);
-    });
-  };
-
-  return { paint, clear: () => context.clearRect(0, 0, introCanvas.width, introCanvas.height) };
-};
-
-const animateParticles = (particles, duration, dissolving = false) => new Promise((resolve) => {
-  if (!particles) {
-    window.setTimeout(resolve, duration);
-    return;
-  }
-
-  let startTime = null;
-  const frame = (time) => {
-    if (startTime === null) startTime = time;
-    const progress = Math.min(1, (time - startTime) / duration);
-    particles.paint(progress, dissolving);
-
-    if (progress < 1) window.requestAnimationFrame(frame);
-    else resolve();
-  };
-
-  window.requestAnimationFrame(frame);
-});
-
 const runSiteIntro = async () => {
-  if (!siteIntro || !introMessage || !introCanvas || !introLogo) return;
+  if (!siteIntro || !introMessage || !introLogo) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reducedMotion) {
@@ -151,25 +60,19 @@ const runSiteIntro = async () => {
     return;
   }
 
-  // The copy resolves from scattered fragments and remains intact; the logo
-  // receives its own particle transition afterwards.
+  // The copy resolves from scattered fragments, then hands off to a simple logo reveal.
   splitIntroMessage();
   await wait(420);
   introMessage.classList.add('is-assembled');
   await wait(1500);
   await wait(1050);
   introMessage.classList.add('is-fading');
-  siteIntro.classList.add('is-dark');
   await wait(650);
   await loadIntroLogo();
-
-  const particles = createLogoParticles();
-  await animateParticles(particles, 1850);
   siteIntro.classList.add('is-logo-visible');
-  await wait(1050);
+  await wait(1250);
   siteIntro.classList.add('is-logo-dissolving');
-  await animateParticles(particles, 900, true);
-  particles?.clear();
+  await wait(820);
   siteIntro.classList.add('is-exiting');
   await wait(1050);
   finishSiteIntro();
