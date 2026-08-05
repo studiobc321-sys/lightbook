@@ -151,23 +151,27 @@ const runSiteIntro = async () => {
     return;
   }
 
+  // The copy resolves from scattered fragments and remains intact; the logo
+  // receives its own particle transition afterwards.
   splitIntroMessage();
-  await wait(340);
-  introMessage.classList.add('is-scattering');
-  await wait(720);
+  await wait(420);
+  introMessage.classList.add('is-assembled');
+  await wait(1500);
+  await wait(1050);
+  introMessage.classList.add('is-fading');
   siteIntro.classList.add('is-dark');
-  await wait(260);
+  await wait(650);
   await loadIntroLogo();
 
   const particles = createLogoParticles();
-  await animateParticles(particles, 1200);
+  await animateParticles(particles, 1850);
   siteIntro.classList.add('is-logo-visible');
-  await wait(760);
+  await wait(1050);
   siteIntro.classList.add('is-logo-dissolving');
-  await animateParticles(particles, 650, true);
+  await animateParticles(particles, 900, true);
   particles?.clear();
   siteIntro.classList.add('is-exiting');
-  await wait(900);
+  await wait(1050);
   finishSiteIntro();
 };
 

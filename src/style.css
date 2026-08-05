@@ -3214,13 +3214,22 @@ html.has-intro .site-intro {
 .site-intro__message span {
   display: inline-block;
   min-width: 0.08em;
-  transition: opacity 620ms ease, transform 780ms cubic-bezier(0.16, 0.72, 0.22, 1), filter 620ms ease;
+  opacity: 0;
+  filter: blur(7px);
+  transform: translate3d(var(--scatter-x), var(--scatter-y), 0) rotate(var(--scatter-rotate)) scale(0.25);
+  transition: opacity 1040ms ease, transform 1500ms cubic-bezier(0.16, 0.72, 0.22, 1), filter 1040ms ease;
 }
 
-.site-intro__message.is-scattering span {
+.site-intro__message.is-assembled span {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) rotate(0) scale(1);
+}
+
+.site-intro__message.is-fading span {
   opacity: 0;
-  filter: blur(3px);
-  transform: translate3d(var(--scatter-x), var(--scatter-y), 0) rotate(var(--scatter-rotate));
+  filter: blur(1px);
+  transform: translate3d(0, -8px, 0) rotate(0) scale(0.98);
 }
 
 .site-intro__particles {
