@@ -475,12 +475,56 @@ if (productsSection) {
   const productHeader = productsSection.querySelector('.products__header');
   const productRows = [...productsSection.querySelectorAll('.product-row')];
   const productMenuItems = [...productsSection.querySelectorAll('[data-product-menu]')];
+  const mobileProductsMedia = window.matchMedia('(max-width: 680px)');
   let productFrame = 0;
   let lastDominantProductIndex = -1;
+  let mobileProductIndex = 0;
+  let mobilePreviewTimer = 0;
   const clampProductProgress = (value) => Math.min(1, Math.max(0, value));
+
+  const clearMobileProductPreview = () => {
+    window.clearTimeout(mobilePreviewTimer);
+    mobilePreviewTimer = 0;
+    productRows.forEach((row) => row.querySelector('.product-row__media')?.classList.remove('is-mobile-preview'));
+  };
+
+  const setMobileProduct = (index, { revealPreview = false } = {}) => {
+    mobileProductIndex = Math.min(productRows.length - 1, Math.max(0, index));
+    clearMobileProductPreview();
+
+    productRows.forEach((row, rowIndex) => {
+      const active = rowIndex === mobileProductIndex;
+      row.classList.toggle('is-product-active', active);
+      row.style.opacity = active ? '1' : '0';
+      row.style.transform = 'none';
+      row.setAttribute('aria-hidden', String(!active));
+      if (active) row.setAttribute('aria-current', 'true');
+      else row.removeAttribute('aria-current');
+    });
+
+    productMenuItems.forEach((item) => {
+      const active = Number(item.dataset.productIndex) === mobileProductIndex;
+      item.classList.toggle('is-active', active);
+      if (active) item.setAttribute('aria-current', 'page');
+      else item.removeAttribute('aria-current');
+    });
+
+    if (productHeader) {
+      productHeader.style.opacity = '1';
+      productHeader.style.transform = 'none';
+    }
+
+    if (revealPreview) {
+      mobilePreviewTimer = window.setTimeout(() => {
+        productRows[mobileProductIndex]?.querySelector('.product-row__media')?.classList.add('is-mobile-preview');
+      }, 1000);
+    }
+  };
 
   const renderProducts = () => {
     productFrame = 0;
+    if (mobileProductsMedia.matches) return;
+
     const sectionRect = productsSection.getBoundingClientRect();
     const travel = Math.max(1, productsSection.offsetHeight - window.innerHeight);
     const sectionProgress = clampProductProgress(-sectionRect.top / travel);
@@ -494,6 +538,7 @@ if (productsSection) {
     const dominantIndex = easedIncoming >= 0.5 && activeIndex < productRows.length - 1
       ? activeIndex + 1
       : activeIndex;
+    mobileProductIndex = dominantIndex;
 
     productRows.forEach((row, index) => {
       let opacity = 0;
@@ -546,13 +591,34 @@ if (productsSection) {
   productMenuItems.forEach((item) => {
     item.addEventListener('click', () => {
       const index = Number(item.dataset.productIndex);
+      if (mobileProductsMedia.matches) {
+        setMobileProduct(index, { revealPreview: true });
+        return;
+      }
+
       const sectionTop = productsSection.getBoundingClientRect().top + window.scrollY;
       const travel = Math.max(1, productsSection.offsetHeight - window.innerHeight);
       const targetScroll = sectionTop + travel * (index / Math.max(1, productRows.length));
       window.scrollTo({ top: targetScroll, behavior: 'smooth' });
     });
   });
-  requestProductsRender();
+
+  productRows.forEach((row) => {
+    row.querySelector('.product-row__media')?.addEventListener('click', clearMobileProductPreview);
+  });
+
+  const syncProductMode = () => {
+    if (mobileProductsMedia.matches) {
+      setMobileProduct(mobileProductIndex);
+      return;
+    }
+
+    clearMobileProductPreview();
+    requestProductsRender();
+  };
+
+  mobileProductsMedia.addEventListener?.('change', syncProductMode);
+  syncProductMode();
 }
 
 const productSampleModal = document.querySelector('[data-product-sample-modal]');
