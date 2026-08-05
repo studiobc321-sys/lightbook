@@ -3193,16 +3193,19 @@ html.has-intro .site-intro {
 }
 
 .site-intro__message {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   z-index: 3;
   display: flex;
   justify-content: center;
   margin: 0;
   color: var(--ink);
-  font-size: clamp(26px, 3.4vw, 48px);
+  font-size: clamp(20px, 2.55vw, 36px);
   font-weight: 560;
-  letter-spacing: -0.075em;
+  letter-spacing: -0.055em;
   line-height: 1.2;
+  transform: translate(-50%, -50%);
   word-break: keep-all;
 }
 
@@ -3228,25 +3231,27 @@ html.has-intro .site-intro {
 }
 
 .site-intro__logo {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   z-index: 3;
-  width: min(520px, 72vw);
+  width: min(380px, 58vw);
   height: auto;
   opacity: 0;
   filter: none;
-  transform: translateY(12px);
+  transform: translate(-50%, calc(-50% + 12px));
   transition: opacity 460ms ease, transform 760ms cubic-bezier(0.16, 0.72, 0.22, 1);
   pointer-events: none;
 }
 
 .site-intro.is-logo-visible .site-intro__logo {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, -50%);
 }
 
 .site-intro.is-logo-dissolving .site-intro__logo {
   opacity: 0;
-  transform: translateY(-54px);
+  transform: translate(-50%, calc(-50% - 54px));
   transition-duration: 620ms;
 }
 
@@ -3257,15 +3262,15 @@ html.has-intro .site-intro {
 
 @media (max-width: 680px) {
   .site-intro__message {
-    width: min(78vw, 320px);
-    flex-wrap: wrap;
-    font-size: clamp(24px, 8vw, 34px);
-    line-height: 1.28;
+    width: max-content;
+    max-width: 88vw;
+    font-size: clamp(18px, 5.5vw, 26px);
+    line-height: 1.24;
     text-align: center;
   }
 
   .site-intro__logo {
-    width: min(76vw, 360px);
+    width: min(66vw, 280px);
   }
 }
 
