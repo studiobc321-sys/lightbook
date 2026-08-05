@@ -2314,6 +2314,39 @@ a {
   }
 }
 
+/* Media should own its frame: no letterbox bands around the supplied photos. */
+.restoration__media {
+  width: min(100%, 520px);
+  height: auto;
+  min-height: 0;
+  justify-self: center;
+}
+
+.restoration .hero__comparison {
+  flex: none;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+}
+
+.restoration .hero__comparison-image {
+  object-fit: cover !important;
+  background: transparent;
+}
+
+.process-panel::before {
+  display: none;
+}
+
+.process-panel img {
+  object-fit: cover;
+}
+
+@media (min-width: 681px) {
+  .restoration__media {
+    justify-self: end;
+  }
+}
+
 /* The quote uses weight and color only; never divider-like underlines. */
 .memory-quote__text .memory-quote__line,
 .memory-quote__text .memory-quote__line strong {
@@ -3282,6 +3315,7 @@ html.has-intro .site-intro {
 
 .products--stage .products__header h2 {
   font-size: clamp(34px, 4.3vw, 64px);
+  font-weight: 500;
   line-height: 0.94;
 }
 
@@ -3290,7 +3324,7 @@ html.has-intro .site-intro {
   display: none;
 }
 
-.products--stage > .product-stage-menu {
+.products--stage .products__inner > .product-stage-menu {
   position: absolute;
   z-index: 5;
   top: clamp(154px, 19svh, 220px);
@@ -3497,7 +3531,7 @@ html.has-intro .site-intro {
     font-size: 32px;
   }
 
-  .products--stage > .product-stage-menu {
+  .products--stage .products__inner > .product-stage-menu {
     position: absolute;
     top: 126px;
     right: var(--page-gutter);
@@ -3539,7 +3573,7 @@ html.has-intro .site-intro {
     max-width: 320px;
   }
 
-  .products--stage > .product-stage-menu {
+  .products--stage .products__inner > .product-stage-menu {
     display: none;
   }
 
