@@ -200,39 +200,111 @@ const heroCarousel = document.querySelector('[data-hero-carousel]');
 
 if (heroCarousel) {
   const heroSlides = [...heroCarousel.querySelectorAll('[data-hero-slide]')];
-  const heroMedia = heroCarousel.closest('.hero__media');
+  const heroSection = heroCarousel.closest('.hero');
   const heroPrev = document.querySelector('[data-hero-prev]');
   const heroNext = document.querySelector('[data-hero-next]');
+  const heroAutoplay = document.querySelector('[data-hero-autoplay]');
+  const heroPagination = document.querySelector('[data-hero-pagination]');
+  const heroCurrent = document.querySelector('[data-hero-current]');
+  const heroTotal = document.querySelector('[data-hero-total]');
+  const heroProgress = document.querySelector('[data-hero-progress]');
+  const heroMobileMedia = window.matchMedia('(max-width: 680px)');
+  const heroReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const heroSlideDuration = 5000;
+  // One clock drives both the bar and slide changes, including pause/resume.
+  const heroProgressAnimation = heroProgress.animate(
+    [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }],
+    { duration: heroSlideDuration, fill: 'both' },
+  );
+  heroProgressAnimation.pause();
+  heroTotal.textContent = String(heroSlides.length).padStart(2, '0');
   let heroIndex = 0;
-
-  const syncHeroSources = () => {
-    const mobile = window.matchMedia('(max-width: 680px)').matches;
-    heroSlides.forEach((slide) => {
-      const source = mobile ? slide.dataset.mobileSrc : slide.dataset.desktopSrc;
-      if (source && !slide.src.endsWith(source)) slide.src = source;
-    });
-  };
+  let autoplayPaused = heroReducedMotion.matches;
+  let heroInView = true;
+  let controlsHovered = false;
+  let keyboardFocused = false;
 
   const showHeroSlide = (nextIndex) => {
-    heroIndex = nextIndex % heroSlides.length;
+    heroIndex = (nextIndex + heroSlides.length) % heroSlides.length;
+    heroCurrent.textContent = String(heroIndex + 1).padStart(2, '0');
+    heroPagination.setAttribute('aria-label', `전체 ${heroSlides.length}장 중 ${heroIndex + 1}번째 사진`);
+    heroProgressAnimation.currentTime = 0;
     heroSlides.forEach((slide, index) => {
       const active = index === heroIndex;
       slide.classList.toggle('is-active', active);
       slide.setAttribute('aria-hidden', String(!active));
-      if (active && heroMedia) heroMedia.style.setProperty('--hero-bg', `url("${slide.currentSrc || slide.src}")`);
     });
   };
 
-  const moveHeroSlide = (step) => showHeroSlide((heroIndex + step + heroSlides.length) % heroSlides.length);
+  const syncHeroSources = () => {
+    const mobile = heroMobileMedia.matches;
+    heroSlides.forEach((slide) => {
+      const alt = mobile ? slide.dataset.mobileAlt : slide.dataset.desktopAlt;
+      if (alt) slide.querySelector('img').alt = alt;
+      slide.style.setProperty('--hero-mobile-image', `url("${slide.querySelector('source').srcset}")`);
+    });
+  };
+
+  const scheduleHeroSlide = () => {
+    const paused = autoplayPaused || document.hidden || !heroInView || controlsHovered || keyboardFocused
+      || document.documentElement.classList.contains('has-intro');
+    heroCarousel.setAttribute('aria-live', paused ? 'polite' : 'off');
+    heroAutoplay.classList.toggle('is-paused', autoplayPaused);
+    heroAutoplay.setAttribute('aria-label', autoplayPaused ? '슬라이드 자동 재생 시작' : '슬라이드 자동 재생 일시정지');
+    if (paused) heroProgressAnimation.pause();
+    else heroProgressAnimation.play();
+  };
+
+  heroProgressAnimation.onfinish = () => {
+    showHeroSlide(heroIndex + 1);
+    scheduleHeroSlide();
+  };
+
+  const moveHeroSlide = (step) => {
+    showHeroSlide(heroIndex + step);
+    scheduleHeroSlide();
+  };
 
   syncHeroSources();
   showHeroSlide(0);
+  scheduleHeroSlide();
   heroPrev?.addEventListener('click', () => moveHeroSlide(-1));
   heroNext?.addEventListener('click', () => moveHeroSlide(1));
-  window.addEventListener('resize', () => {
-    syncHeroSources();
-    showHeroSlide(heroIndex);
+  heroMobileMedia.addEventListener('change', syncHeroSources);
+  heroAutoplay?.addEventListener('click', () => {
+    autoplayPaused = !autoplayPaused;
+    scheduleHeroSlide();
   });
+  heroReducedMotion.addEventListener('change', () => {
+    autoplayPaused = heroReducedMotion.matches;
+    scheduleHeroSlide();
+  });
+  document.addEventListener('visibilitychange', scheduleHeroSlide);
+  window.addEventListener('lightbook:intro-complete', scheduleHeroSlide);
+
+  const heroControls = heroSection.querySelector('.hero__carousel-controls');
+  heroControls.addEventListener('pointerenter', (event) => {
+    if (event.pointerType !== 'mouse') return;
+    controlsHovered = true;
+    scheduleHeroSlide();
+  });
+  heroControls.addEventListener('pointerleave', () => {
+    controlsHovered = false;
+    scheduleHeroSlide();
+  });
+  heroSection.addEventListener('focusin', (event) => {
+    keyboardFocused = event.target !== heroAutoplay && event.target.matches(':focus-visible');
+    scheduleHeroSlide();
+  });
+  heroSection.addEventListener('focusout', () => {
+    keyboardFocused = false;
+    scheduleHeroSlide();
+  });
+
+  new IntersectionObserver(([entry]) => {
+    heroInView = entry.isIntersecting;
+    scheduleHeroSlide();
+  }, { threshold: 0 }).observe(heroSection);
 }
 
 const serviceRevealItems = [...document.querySelectorAll('[data-services-reveal]')];
@@ -276,8 +348,6 @@ if (storyGallery) {
   const galleryItems = [...storyGallery.querySelectorAll('[data-gallery-item]')];
   const galleryDisplay = storyGallery.querySelector('[data-gallery-display]');
   const displayImage = galleryDisplay?.querySelector('img');
-  const displayTitle = storyGallery.querySelector('[data-gallery-display-title]');
-  const displayMeta = storyGallery.querySelector('[data-gallery-display-meta]');
   let galleryTimer = 0;
 
   const selectGalleryItem = (item) => {
@@ -294,8 +364,6 @@ if (storyGallery) {
     galleryTimer = window.setTimeout(() => {
       displayImage.src = item.dataset.galleryImage || displayImage.src;
       displayImage.alt = item.dataset.galleryAlt || '';
-      if (displayTitle) displayTitle.textContent = item.dataset.galleryTitle || '';
-      if (displayMeta) displayMeta.textContent = item.dataset.galleryMeta || '';
       displayImage.onload = () => galleryDisplay?.classList.remove('is-switching');
       window.setTimeout(() => galleryDisplay?.classList.remove('is-switching'), 360);
     }, 150);
@@ -389,7 +457,8 @@ if (processSection) {
   const processSteps = [...processSection.querySelectorAll('.process-step')];
   const processPanels = [...processSection.querySelectorAll('.process-panel')];
   const processRail = processSection.querySelector('.process__rail span');
-  const processCounter = processSection.querySelector('.process__counter');
+  const processMobileMedia = window.matchMedia('(max-width: 680px)');
+  let mobileProcessIndex = 0;
   let frame = 0;
 
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
@@ -403,15 +472,20 @@ if (processSection) {
 
   const renderProcess = () => {
     frame = 0;
+    const mobile = processMobileMedia.matches;
+    let activeIndex = mobileProcessIndex;
+    let localProgress = 0;
 
-    const sectionRect = processSection.getBoundingClientRect();
-    const travel = Math.max(1, processSection.offsetHeight - window.innerHeight);
-    const progress = clamp(-sectionRect.top / travel);
-    const scaledProgress = progress * processSteps.length;
-    const activeIndex = Math.min(processSteps.length - 1, Math.floor(scaledProgress));
-    const localProgress = activeIndex === processSteps.length - 1
-      ? 1
-      : clamp(scaledProgress - activeIndex);
+    if (!mobile) {
+      const sectionRect = processSection.getBoundingClientRect();
+      const travel = Math.max(1, processSection.offsetHeight - window.innerHeight);
+      const progress = clamp(-sectionRect.top / travel);
+      const scaledProgress = progress * processSteps.length;
+      activeIndex = Math.min(processSteps.length - 1, Math.floor(scaledProgress));
+      localProgress = activeIndex === processSteps.length - 1
+        ? 1
+        : clamp(scaledProgress - activeIndex);
+    }
 
     processSteps.forEach((step, index) => {
       const active = index === activeIndex;
@@ -430,14 +504,10 @@ if (processSection) {
       processRail.style.height = `${clamp(railProgress) * 100}%`;
     }
 
-    if (processCounter) {
-      processCounter.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(processSteps.length).padStart(2, '0')}`;
-    }
-
     processPanels.forEach((panel, index) => {
       const isCurrent = index === activeIndex;
       const isNext = index === activeIndex + 1;
-      const nextFade = isNext ? clamp((localProgress - 0.58) / 0.42) : 0;
+      const nextFade = !mobile && isNext ? clamp((localProgress - 0.58) / 0.42) : 0;
       const opacity = isCurrent ? 1 : nextFade * 0.8;
       const scaleProgress = isCurrent ? localProgress : nextFade;
       const scale = 0.96 + scaleProgress * 0.08;
@@ -445,7 +515,7 @@ if (processSection) {
 
       panel.classList.toggle('is-active', isCurrent);
       panel.style.opacity = opacity;
-      panel.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+      panel.style.transform = mobile ? 'none' : `scale(${scale}) translateY(${translateY}px)`;
       panel.setAttribute('aria-hidden', String(!isCurrent));
     });
   };
@@ -457,16 +527,31 @@ if (processSection) {
   processSteps.forEach((step, index) => {
     const trigger = step.querySelector('.process-step__label');
     trigger?.addEventListener('click', () => {
+      if (processMobileMedia.matches) {
+        mobileProcessIndex = index;
+        requestProcessRender();
+        return;
+      }
+
       const sectionTop = processSection.getBoundingClientRect().top + window.scrollY;
       const travel = Math.max(1, processSection.offsetHeight - window.innerHeight);
-      const targetScroll = sectionTop + travel * (index / processSteps.length);
+      // Land inside the step, not on a subpixel boundary rounded into the previous one.
+      const targetScroll = Math.ceil(sectionTop + travel * (index / processSteps.length)) + 1;
       window.scrollTo({ top: targetScroll, behavior: 'smooth' });
     });
   });
 
-  window.addEventListener('scroll', requestProcessRender, { passive: true });
+  const syncProcessMode = () => {
+    window.removeEventListener('scroll', requestProcessRender);
+    if (!processMobileMedia.matches) {
+      window.addEventListener('scroll', requestProcessRender, { passive: true });
+    }
+    requestProcessRender();
+  };
+
+  processMobileMedia.addEventListener('change', syncProcessMode);
   window.addEventListener('resize', requestProcessRender);
-  requestProcessRender();
+  syncProcessMode();
 }
 
 const productsSection = document.querySelector('.products');

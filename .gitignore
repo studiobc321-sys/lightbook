@@ -1,6 +1,9 @@
 node_modules/
 dist/
 .omx/
+.vercel/
+# Keep customer originals local; publish the optimized copies in public/images.
+assets/source-images/
 .env
 .env.*
 *.log
